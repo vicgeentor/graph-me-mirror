@@ -1,0 +1,4 @@
+name: call-me-0.1
+include: src
+depend:
+flags:
