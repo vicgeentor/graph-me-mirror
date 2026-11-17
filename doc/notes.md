@@ -23,3 +23,14 @@
 
 - Bove & Capretta 2005: Modelling general recursion in type
   theory (doi:10.1017/S0960129505004822)
+- Bove et al. 2012: Partiality and Recursion in Interactive
+  Theorem Provers — An Overview
+  (https://inria.hal.science/hal-00691459/document)
+- Barthe et al. 2006: Defining and Reasoning About Recursive
+  Functions: A Practical Tool for the Coq Proof Assistant
+  (https://davidpichardie.github.io/papers/flops06.pdf)
+- Sozeau & Mangin 2019: Equations reloaded: high-level
+  dependently-typed functional programming and proving in Coq
+  (https://dl.acm.org/doi/10.1145/3341690)
+- Krauss 2009: Partial and Nested Recursive Function Definitions
+  in Higher-order Logic
