@@ -1,5 +1,7 @@
 # graph-me
 
+_"Graph me!" "Okay, here you go"_
+
 The `graph-me` Agda library aims to provide the tools to
 automatically generate function graphs from function definitions
 in Agda. It does so by utilizing the
@@ -23,9 +25,6 @@ relatively simple, but this can become quite tedious for more
 complex functions. The idea of `graph-me` is to relieve the
 analyst of this burden, by automatically generating this
 relation through Agda metaprogramming (reflection).
-
-The ideal situation: the function analyst says "graph me", and
-the graph of a function is provided.
 
 ## Development
 
