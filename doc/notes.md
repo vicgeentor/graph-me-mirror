@@ -4,9 +4,9 @@
 
 - [ ] Understand reflection in Agda better (look at
   https://github.com/alhassy/gentle-intro-to-reflection)
-- [ ] Construct call graph for simplified append
-- [ ] Construct call graph for regular append
-- [ ] prove soundness and completeness for generated call graphs
+- [ ] Generate graph for simplified append
+- [ ] Generate graph for regular append
+- [ ] prove soundness and completeness for generated graphs
   of append
 
 ## Approach

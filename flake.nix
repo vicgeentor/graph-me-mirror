@@ -13,18 +13,18 @@
         { pkgs, lib, ... }:
         {
           packages = rec {
-            call-me = pkgs.agdaPackages.mkDerivation {
-              pname = "call-me";
+            graph-me = pkgs.agdaPackages.mkDerivation {
+              pname = "graph-me";
               version = "0.1";
               src = ./.;
               meta = {
-                description = "Agda library for automatic call graph generation from function definitions";
-                homepage = "https://codeberg.org/vicgeentor/call-me";
+                description = "Agda library for automatic function graph generation from function definitions";
+                homepage = "https://codeberg.org/vicgeentor/graph-me";
                 license = lib.licenses.mit;
                 platforms = lib.platforms.unix;
               };
             };
-            default = call-me;
+            default = graph-me;
           };
 
           devShells.default = pkgs.mkShell {

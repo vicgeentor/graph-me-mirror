@@ -1,12 +1,12 @@
-# call-me
+# graph-me
 
-The `call-me` Agda library aims to provide the tools to
-automatically generate call graphs from function definitions in
-Agda. It does so by utilizing the
+The `graph-me` Agda library aims to provide the tools to
+automatically generate function graphs from function definitions
+in Agda. It does so by utilizing the
 [Reflection](https://agda.readthedocs.io/en/stable/language/reflection.html)
 machinery that Agda provides.
 
-Having the call graph of a function as an inductively defined
+Having the graph of a function as an inductively defined
 relation allows for further analyses of that function. It is
 especially useful for time and memory complexity analyses (see
 [Wouter Swierstra, 2026](https://zenodo.org/records/20506788)).
@@ -20,9 +20,12 @@ $∀ x ∈ A. \, R \: x \: (f \: x)$ holds
 ([Wouter Swierstra, 2026](https://zenodo.org/records/20506788)).
 For simple function definitions, defining this relation is
 relatively simple, but this can become quite tedious for more
-complex functions. The idea of `call-me` is to relieve the
+complex functions. The idea of `graph-me` is to relieve the
 analyst of this burden, by automatically generating this
 relation through Agda metaprogramming (reflection).
+
+The ideal situation: the function analyst says "graph me", and
+the graph of a function is provided.
 
 ## Development
 
