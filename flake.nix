@@ -33,6 +33,14 @@
                 p.standard-library
               ]))
               pkgs.ghc
+              (pkgs.python3.withPackages (
+                ps: with ps; [
+                  mdformat
+                  mdformat-gfm
+                  mdformat-gfm-alerts
+                  mdformat-myst
+                ]
+              ))
             ];
           };
         };
