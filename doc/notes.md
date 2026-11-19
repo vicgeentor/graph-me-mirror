@@ -14,8 +14,8 @@
      correct type based on a function type
   2. Add constructors one by one, either by
      - doing it Bove-Capratta style without the result type
-       (only induction on the arguments)
-     - Use a default value (given by user or choose one, for
+       (only induction on the arguments), or
+     - use a default value (given by user or choose one, for
        example `[]`) for use inside of the result type of
        constructors
 
@@ -23,7 +23,7 @@
 
 - [ ] Write a macro that counts the cases/clauses of a function
   (`count : Name -> Nat`)
-- [ ] Write `unquoteDecl id`, and inspect it later with
+- [x] Write `unquoteDecl id`, and inspect it later with
   normalization (C-c C-n), in a hole, or inspect type error of
   `_ : id 3 ≡ 4`
 - [ ] Write a `size` function that counts the constructors of an
