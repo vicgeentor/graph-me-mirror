@@ -6,8 +6,36 @@
   https://github.com/alhassy/gentle-intro-to-reflection)
 - [ ] Generate graph for simplified append
 - [ ] Generate graph for regular append
-- [ ] prove soundness and completeness for generated graphs
-  of append
+- [ ] prove soundness and completeness for generated graphs of
+  append
+- [ ] Do the exercises below
+- [ ] Follow these steps
+  1. Make an empty data type without constructors, but with the
+     correct type based on a function type
+  2. Add constructors one by one, either by
+     - doing it Bove-Capratta style without the result type
+       (only induction on the arguments)
+     - Use a default value (given by user or choose one, for
+       example `[]`) for use inside of the result type of
+       constructors
+
+## Exercises
+
+- [ ] Write a macro that counts the cases/clauses of a function
+  (`count : Name -> Nat`)
+- [ ] Write `unquoteDecl id`, and inspect it later with
+  normalization (C-c C-n), in a hole, or inspect type error of
+  `_ : id 3 ≡ 4`
+- [ ] Write a `size` function that counts the constructors of an
+  instance of a data type. This is an approximation of the cost
+  function in
+  [Wouter Swierstra, 2026](https://zenodo.org/records/20506788))
+
+## Random notes
+
+- We need the argument patterns of a clause to define the RHS of
+  generated constructors
+- First only look at `con` and `var` in `Pattern`s and `Term`s
 
 ## Approach
 
@@ -17,7 +45,9 @@
 - When encountering a function call on the rhs of a function
   definition, we need to differentiate between recursive calls
   and calls to other functions. In case of the latter, we also
-  require call graph generation for function being called.
+  require graph generation for the function being called.
+
+Steps:
 
 ## Useful papers
 
@@ -34,3 +64,4 @@
   (https://dl.acm.org/doi/10.1145/3341690)
 - Krauss 2009: Partial and Nested Recursive Function Definitions
   in Higher-order Logic
+  (https://link.springer.com/article/10.1007/s10817-009-9157-2)
