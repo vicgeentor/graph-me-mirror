@@ -2,10 +2,11 @@ module GraphMe.Playground where
 
 open import Agda.Builtin.Reflection
 open import Agda.Builtin.Unit
-open import Agda.Builtin.List using ([]; _∷_)
+open import Agda.Builtin.List using (List; []; _∷_)
 open import Agda.Builtin.Sigma using (_,_)
 open import Agda.Builtin.Nat using (Nat; zero; suc)
 open import Agda.Builtin.Equality using (_≡_; refl)
+open import Agda.Builtin.Bool using (Bool; false; true)
 
 -- this allows for do-notation
 _>>=_ : ∀ {a b} {A : Set a} {B : Set b} → TC A → (A → TC B) → TC B
@@ -95,4 +96,95 @@ unquoteDecl id = mkId id
 
 -- tests
 _ : {A : Set} {x : A} → id x ≡ x
+_ = refl
+
+-- Clause counter --
+
+-- Counts the number of clauses a function has
+mkCount : (count-name : Name) → TC ⊤
+mkCount count-name = do
+  ty ← quoteTC (Name → Nat)
+  declareDef (arg' visible count-name) ty
+  defineFun count-name
+    ( clause ( ("n" , arg' visible (def (quote Name) []))
+             ∷ [])
+             ( arg' visible (var 0)
+             ∷ [])
+             (lit (nat 42)) -- What to put here???
+      ∷ [] )
+
+-- `count : Name → Nat`
+unquoteDecl count = mkCount count
+
+-- tests
+
+enumBool : Bool → Nat
+enumBool false = 0
+enumBool true  = 1
+
+_ : count (quote enumBool) ≡ 42
+_ = refl
+
+-- Not what we want... let's try a macro that we can use in a term position
+
+length : {A : Set} (xs : List A) → Nat
+length []       = 0
+length (x ∷ xs) = suc (length xs)
+
+countClauses : Definition → Nat
+countClauses (function cs) = length cs -- We only care about functions
+countClauses _             = 0
+
+macro
+  -- You can treat this macro as a function with type `Name → Nat`
+  count' : Name → Term → TC ⊤
+  count' n hole = do
+    d ← getDefinition n
+    unify hole (lit (nat (countClauses d)))
+
+-- tests
+
+-- macro arguments of types `Term` and `Name` are apparently automatically
+-- quoted before being passed to the macro. Very clean!
+_ : count' enumBool ≡ 2
+_ = refl
+
+suc12345 : Nat → Nat
+suc12345 1 = suc 1
+suc12345 2 = suc 2
+suc12345 3 = suc 3
+suc12345 4 = suc 4
+suc12345 5 = suc 5
+suc12345 _ = 0
+
+_ : count' suc12345 ≡ 6
+_ = refl
+
+-- Simple size of terms --
+
+_+_ : Nat → Nat → Nat
+zero + n = n
+(suc m) + n = suc (m + n)
+
+-- We only count constructors, but we need to search for constructors inside
+-- the constructor arguments as well
+countConstructors : Term → Nat
+countArgs : List (Arg Term) → Nat
+
+countConstructors (con c args) = suc (countArgs args)
+countConstructors _ = 0
+
+countArgs [] = 0
+countArgs (arg i x ∷ xs) = countConstructors x + countArgs xs
+
+macro
+  size : Term → Term → TC ⊤
+  size t hole = unify hole (lit (nat (countConstructors t)))
+
+-- tests
+
+_ : size (suc (suc (suc zero))) ≡ 4 -- Funny, but correct since we see 4 constructors
+_ = refl
+
+_ : size (1 ∷ 2 ∷ 3 ∷ 4 ∷ []) ≡ 5
 _ = refl
