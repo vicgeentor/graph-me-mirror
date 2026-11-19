@@ -21,12 +21,12 @@
 
 ## Exercises
 
-- [ ] Write a macro that counts the cases/clauses of a function
+- [x] Write a macro that counts the cases/clauses of a function
   (`count : Name -> Nat`)
 - [x] Write `unquoteDecl id`, and inspect it later with
   normalization (C-c C-n), in a hole, or inspect type error of
   `_ : id 3 ≡ 4`
-- [ ] Write a `size` function that counts the constructors of an
+- [x] Write a `size` function that counts the constructors of an
   instance of a data type. This is an approximation of the cost
   function in
   [Wouter Swierstra, 2026](https://zenodo.org/records/20506788))
