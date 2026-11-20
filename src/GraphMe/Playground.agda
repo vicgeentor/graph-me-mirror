@@ -1,7 +1,7 @@
 module GraphMe.Playground where
 
 open import Agda.Builtin.Reflection
-open import Agda.Builtin.Unit
+open import Agda.Builtin.Unit using (⊤)
 open import Agda.Builtin.List using (List; []; _∷_)
 open import Agda.Builtin.Sigma using (_,_)
 open import Agda.Builtin.Nat using (Nat; zero; suc)
