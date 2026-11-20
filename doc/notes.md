@@ -8,16 +8,15 @@
 - [ ] Generate graph for regular append
 - [ ] prove soundness and completeness for generated graphs of
   append
-- [ ] Do the exercises below
-- [ ] Follow these steps
-  1. Make an empty data type without constructors, but with the
-     correct type based on a function type
-  2. Add constructors one by one, either by
-     - doing it Bove-Capratta style without the result type
-       (only induction on the arguments), or
-     - use a default value (given by user or choose one, for
-       example `[]`) for use inside of the result type of
-       constructors
+- [x] Do the exercises below
+- [x] Make an empty data type without constructors, but with the
+  correct type based on a function type
+- [ ] Add constructors one by one, either by
+  - doing it Bove-Capratta style without the result type (only
+    induction on the arguments), or
+  - use a default value (given by user or choose one, for
+    example `[]`) for use inside of the result type of
+    constructors
 
 ## Exercises
 
