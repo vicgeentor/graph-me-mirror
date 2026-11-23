@@ -1,5 +1,7 @@
 module GraphMe.Playground where
 
+open import GraphMe.Base
+
 open import Agda.Builtin.Reflection
 open import Agda.Builtin.Unit using (⊤)
 open import Agda.Builtin.List using (List; []; _∷_)
@@ -7,18 +9,6 @@ open import Agda.Builtin.Sigma using (_,_)
 open import Agda.Builtin.Nat using (Nat; zero; suc)
 open import Agda.Builtin.Equality using (_≡_; refl)
 open import Agda.Builtin.Bool using (Bool; false; true)
-
--- this allows for do-notation
-_>>=_ : ∀ {a b} {A : Set a} {B : Set b} → TC A → (A → TC B) → TC B
-_>>=_ = bindTC
-
-_>>_ : ∀ {a b} {A : Set a} {B : Set b} → TC A → TC B → TC B
-_>>_ = λ p q → p >>= (λ _ → q)
-
--- We can use this to define arguments with sensible defaults for now,
--- such as that they are relevant and have a non-zero quantity
-arg' : {A : Set} → Visibility → A → Arg A
-arg' v = arg (arg-info v (modality relevant quantity-ω))
 
 -- identity --
 
@@ -188,3 +178,6 @@ _ = refl
 
 _ : size (1 ∷ 2 ∷ 3 ∷ 4 ∷ []) ≡ 5
 _ = refl
+
+-- _ : inspectWithError ({A : Set} → List A → List A → List A → Set) ≡ Nat
+-- _ = refl

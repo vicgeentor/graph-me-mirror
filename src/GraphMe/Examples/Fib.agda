@@ -15,7 +15,7 @@ fib zero = 0
 fib (suc zero) = 1
 fib (suc (suc n)) = fib (suc n) + fib n
 
-fibGraph = emptyGraph fib
+unquoteDecl data FibGraph = emptyGraph FibGraph (quote fib)
 
-_ : typeOf fibGraph ≡ (Nat → Nat → Set)
+_ : typeOf FibGraph ≡ (Nat → Nat → Set)
 _ = refl
