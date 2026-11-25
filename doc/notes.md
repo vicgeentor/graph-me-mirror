@@ -1,5 +1,25 @@
 # Notes (mainly for myself during development)
 
+## Project outline
+
+1. 3-12-2026: Allow for graph generation of `append`
+   - Also show soundness and completeness
+2. 3-12-2026: Generalize so we can also generate graph of
+   `reverse-acc`
+   - Also show soundness and completeness
+3. 10-12-2026: Be able to generate graph of `slow-reverse`, this
+   graph also has a constructor that has the graph of `append`
+   as index
+   - Also show soundness and completeness
+4. 17-12-2026: Be able to generate graph of `insert`, with three
+   constructors
+   - Also show soundness and completeness
+5. 17-12-2026: Be able to generate graph of slow `fib`, which
+   has two recursive calls in the RHS
+   - Also show soundness and completeness
+6. 14-1-2027: Add support for mutual recursion
+7. 28-1-2027: Add support for higher-order functions
+
 ## TODO
 
 - [x] Understand reflection in Agda better (look at
@@ -11,7 +31,7 @@
 - [x] Do the exercises below
 - [x] Make an empty data type without constructors, but with the
   correct type based on a function type
-- [ ] Add constructors one by one, either by
+- [x] Add constructors one by one, either by
   - doing it Bove-Capratta style without the result type (only
     induction on the arguments), or
   - use a default value (given by user or choose one, for
@@ -29,40 +49,6 @@
   instance of a data type. This is an approximation of the cost
   function in
   [Wouter Swierstra, 2026](https://zenodo.org/records/20506788))
-
-## Random notes
-
-- We need the argument patterns of a clause to define the RHS of
-  generated constructors
-- First only look at `con` and `var` in `Pattern`s and `Term`s
-
-## Approach
-
-- We start from simple examples and keep generalizing the
-  program to support more examples. The hope is to end up with
-  something that supports every type of function
-- When encountering a function call on the rhs of a function
-  definition, we need to differentiate between recursive calls
-  and calls to other functions. In case of the latter, we also
-  require graph generation for the function being called.
-
-## Project outline
-
-2. Allow for graph generation of `append`
-   - Also show soundness and completeness
-3. Generalize so we can also generate graph of `reverse-acc`
-   - Also show soundness and completeness
-4. Be able to generate graph of `slow-reverse`, this graph also
-   has a constructor that has the graph of `append` as index
-   - Also show soundness and completeness
-5. Be able to generate graph of `insert`, with three
-   constructors
-   - Also show soundness and completeness
-6. Be able to generate graph of slow `fib`, which has two
-   recursive calls in the RHS
-   - Also show soundness and completeness
-7. Add support for mutual recursion
-8. Add support for higher-order functions
 
 ## Useful papers
 

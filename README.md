@@ -1,6 +1,8 @@
 # graph-me
 
-_"Graph me!" "Okay, here you go"_
+> _Graph me!_
+>
+> _Okay, here you go_
 
 The `graph-me` Agda library aims to provide the tools to
 automatically generate function graphs from function definitions
@@ -9,7 +11,7 @@ in Agda. It does so by utilizing the
 machinery that Agda provides.
 
 Having the graph of a function as an inductively defined
-relation allows for further analyses of that function. It is
+relation allows for further analyses of said function. It is
 especially useful for time and memory complexity analyses (see
 [Wouter Swierstra, 2026](https://zenodo.org/records/20506788)).
 
@@ -20,11 +22,11 @@ encode a function definition by reifying its graph as an
 inductively defined relation $R : A → B → Set$, such that
 $∀ x ∈ A. \, R \: x \: (f \: x)$ holds
 ([Wouter Swierstra, 2026](https://zenodo.org/records/20506788)).
-For simple function definitions, defining this relation is
-relatively simple, but this can become quite tedious for more
-complex functions. The idea of `graph-me` is to relieve the
-analyst of this burden, by automatically generating this
-relation through Agda metaprogramming (reflection).
+For simple function definitions, defining $R$ is relatively
+simple, but this can become quite tedious for more complex
+functions. The idea of `graph-me` is to relieve the analyst of
+this burden, by automatically generating $R$ through Agda
+metaprogramming (reflection).
 
 ## Development
 
