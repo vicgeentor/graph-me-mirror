@@ -2,7 +2,7 @@
 
 ## TODO
 
-- [ ] Understand reflection in Agda better (look at
+- [x] Understand reflection in Agda better (look at
   https://github.com/alhassy/gentle-intro-to-reflection)
 - [ ] Generate graph for simplified append
 - [ ] Generate graph for regular append
@@ -46,7 +46,23 @@
   and calls to other functions. In case of the latter, we also
   require graph generation for the function being called.
 
-Steps:
+## Project outline
+
+2. Allow for graph generation of `append`
+   - Also show soundness and completeness
+3. Generalize so we can also generate graph of `reverse-acc`
+   - Also show soundness and completeness
+4. Be able to generate graph of `slow-reverse`, this graph also
+   has a constructor that has the graph of `append` as index
+   - Also show soundness and completeness
+5. Be able to generate graph of `insert`, with three
+   constructors
+   - Also show soundness and completeness
+6. Be able to generate graph of slow `fib`, which has two
+   recursive calls in the RHS
+   - Also show soundness and completeness
+7. Add support for mutual recursion
+8. Add support for higher-order functions
 
 ## Useful papers
 
