@@ -1,32 +1,27 @@
 module GraphMe where
 
 open import GraphMe.Base public
+open import GraphMe.Utils
 
 open import Agda.Builtin.Reflection
 open import Agda.Builtin.Unit using (⊤)
-open import Agda.Builtin.List using ([])
-open import Agda.Builtin.String using (primStringAppend)
-open import Agda.Builtin.Nat using (Nat; zero; suc)
-
-mkGraphType : Type → TC Type
-mkGraphType (pi a (abs s t)) = do
-  t' ← mkGraphType t
-  returnTC (pi a (abs s t'))
-mkGraphType rest = returnTC (pi (arg' visible rest) (abs "_" (agda-sort (lit 0)))) -- we lock the result to Set₀ for now
-
--- We treat every leading argument of type `Set` in the function
--- as a paramater of the graph
-countParams : Type → Nat
-countParams (pi (arg _ (agda-sort _)) (abs _ t)) = suc (countParams t)
-countParams _ = 0
-
-graphName : Name → TC Name
-graphName n = freshName (primStringAppend (primShowQName n) "#graph")
+open import Agda.Builtin.List using (List; [])
+open import Agda.Builtin.Sigma using (_,_)
 
 -- Function graph without constructors, but with the correct type
-emptyGraph : Name → Name → TC ⊤
-emptyGraph graph-name n = do
-  ty ← getType n
-  graphTy ← mkGraphType ty
-  declareData graph-name (countParams ty) graphTy
+mkEmptyGraph : Name → Name → TC ⊤
+mkEmptyGraph graph-name func-name = do
+  ty ← getType func-name
+  d ← getDefinition func-name
+  let graphTy , nArgs = mkGraphType ty
+  declareData graph-name nArgs graphTy
   defineData graph-name []
+
+mkGraph : Name → Name → List Name → TC ⊤
+mkGraph graph-name func-name constructors = do
+  ty ← getType func-name
+  d ← getDefinition func-name
+  let graphTy , nArgs = mkGraphType ty
+  cons ← mkConstructors nArgs graph-name constructors d
+  declareData graph-name nArgs graphTy
+  defineData graph-name cons

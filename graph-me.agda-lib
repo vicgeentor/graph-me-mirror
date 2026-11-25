@@ -1,4 +1,5 @@
 name: graph-me-0.1
 include: src
 depend:
-flags:
+flags: -v tc.unquote.decl:10
+       -v tc.unquote.def:10

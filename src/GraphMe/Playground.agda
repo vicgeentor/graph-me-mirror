@@ -1,6 +1,7 @@
 module GraphMe.Playground where
 
 open import GraphMe.Base
+open import GraphMe.Utils
 
 open import Agda.Builtin.Reflection
 open import Agda.Builtin.Unit using (⊤)
@@ -179,5 +180,5 @@ _ = refl
 _ : size (1 ∷ 2 ∷ 3 ∷ 4 ∷ []) ≡ 5
 _ = refl
 
--- _ : inspectWithError ({A : Set} → List A → List A → List A → Set) ≡ Nat
+-- _ : showTermOf ({A : Set} → List A → List A → List A → Set) ≡ Nat
 -- _ = refl
