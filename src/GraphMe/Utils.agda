@@ -1,10 +1,10 @@
 module GraphMe.Utils where
 
+open import Agda.Builtin.List using (List; []; _∷_)
 open import Agda.Builtin.Reflection
 open import Agda.Builtin.Unit using (⊤)
-open import Agda.Builtin.List using (List; []; _∷_)
 
--- this allows for do-notation
+-- This allows for do-notation
 _>>=_ : ∀ {a b} {A : Set a} {B : Set b} → TC A → (A → TC B) → TC B
 _>>=_ = bindTC
 

@@ -3,13 +3,13 @@ module GraphMe.Playground where
 open import GraphMe.Base
 open import GraphMe.Utils
 
-open import Agda.Builtin.Reflection
-open import Agda.Builtin.Unit using (⊤)
-open import Agda.Builtin.List using (List; []; _∷_)
-open import Agda.Builtin.Sigma using (_,_)
-open import Agda.Builtin.Nat using (Nat; zero; suc)
-open import Agda.Builtin.Equality using (_≡_; refl)
 open import Agda.Builtin.Bool using (Bool; false; true)
+open import Agda.Builtin.Equality using (_≡_; refl)
+open import Agda.Builtin.List using (List; []; _∷_)
+open import Agda.Builtin.Nat using (Nat; zero; suc)
+open import Agda.Builtin.Reflection
+open import Agda.Builtin.Sigma using (_,_)
+open import Agda.Builtin.Unit using (⊤)
 
 -- identity --
 

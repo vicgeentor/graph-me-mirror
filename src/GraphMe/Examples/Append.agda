@@ -3,10 +3,10 @@ module GraphMe.Examples.Append where
 open import GraphMe
 open import GraphMe.Utils hiding (_++_)
 
-open import Agda.Builtin.Reflection
-open import Agda.Builtin.Nat using (Nat)
 open import Agda.Builtin.Equality using (_≡_; refl)
 open import Agda.Builtin.List using (List; []; _∷_)
+open import Agda.Builtin.Nat using (Nat)
+open import Agda.Builtin.Reflection
 
 _++_ : {A : Set} → List A → List A → List A
 []       ++ ys = ys

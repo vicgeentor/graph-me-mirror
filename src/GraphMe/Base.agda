@@ -2,21 +2,26 @@ module GraphMe.Base where
 
 open import GraphMe.Utils
 
-open import Agda.Builtin.Reflection
-open import Agda.Builtin.Unit using (⊤)
-open import Agda.Builtin.List using (List; []; _∷_)
-open import Agda.Builtin.String using (String; primStringAppend)
-open import Agda.Builtin.Nat using (Nat; zero; suc)
-open import Agda.Builtin.Sigma using (Σ; _,_)
 open import Agda.Builtin.Int using (pos; primShowInteger)
+open import Agda.Builtin.List using (List; []; _∷_)
+open import Agda.Builtin.Nat using (Nat; zero; suc)
+open import Agda.Builtin.Reflection
+open import Agda.Builtin.Sigma using (Σ; _,_)
+open import Agda.Builtin.String using (String; primStringAppend)
+open import Agda.Builtin.Unit using (⊤)
 
--- Graph type and name --
+-- Graph type --
+
+-- Approach:
+-- * We simply add `→ Set` to the type of the function
+-- * When we call `declareData` in `GraphMe.mkGraph`, we state how many
+--   indices in the generated type correspond to arguments of the graph type
 
 mkGraphType : Type → Type
 mkGraphType (pi a (abs s t)) = pi a (abs s (mkGraphType t))
 mkGraphType rest = pi (arg' visible rest) (abs "_" (agda-sort (lit 0)))
 
--- In stead of providing the number of arguments to `mkGraph`,
+-- Instead of providing the number of arguments to `mkGraph`,
 -- a user can also generate the number of arguments of the graph type.
 -- This function does precisely that, with the following heuristic:
 -- we treat every leading argument of type `Set ℓ` in the function
@@ -29,12 +34,12 @@ countArgumentsHeuristic _ = 0
 -- Graph constructors --
 
 -- Approach:
--- 1. We make a constructor for each clause of the function (`mkConstructor(s)`)
--- 2. Each item in the telescope maps to a hidden binder in the pi abstraction
---    of the constructor type, excluding the ones that correspond to
---    parameters to the graph type (`telToPi`)
--- 3. Each pattern in the LHS maps to a constructor argument (`patArgsToTerms`)
--- 4. The RHS (result) maps to the final constructor argument (inside `mkConstructor`)
+-- * We make a constructor for each clause of the function (`mkConstructor(s)`)
+-- * Each item in the telescope maps to a hidden binder in the pi abstraction
+--   of the constructor type, excluding the ones that correspond to
+--   parameters to the graph type (`telToPi`)
+-- * Each pattern in the LHS maps to a constructor argument (`patArgsToTerms`)
+-- * The RHS (result) maps to the final constructor argument (inside `mkConstructor`)
 
 Constructor : Set
 Constructor = (Σ Name (λ _ → Σ Quantity (λ _ → Type)))
@@ -60,7 +65,8 @@ mutual
 -- This turns all items in the telescope to hidden, and converts them
 -- to abstractions. We exclude the arguments to the graph by assuming that
 -- the first n items in the telescope correspond to the n parameters of the
--- graph type.
+-- graph type. This should be correct, since we already made sure that we
+-- have exactly n graph parameters in `mkGraphType`.
 -- We assume that `rest` is `def graph-name args` at the call site
 telToPi : Nat → Telescope → Type → Type
 telToPi (suc n) (_ ∷ tel) rest = telToPi n tel rest
