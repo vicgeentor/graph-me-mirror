@@ -2,9 +2,9 @@
 
 ## Project outline
 
-1. 3-12-2026: Allow for graph generation of `append`
+1. 03-12-2026: Allow for graph generation of `append`
    - Also show soundness and completeness
-2. 3-12-2026: Generalize so we can also generate graph of
+2. 03-12-2026: Generalize so we can also generate graph of
    `reverse-acc`
    - Also show soundness and completeness
 3. 10-12-2026: Be able to generate graph of `slow-reverse`, this
@@ -17,14 +17,16 @@
 5. 17-12-2026: Be able to generate graph of slow `fib`, which
    has two recursive calls in the RHS
    - Also show soundness and completeness
-6. 14-1-2027: Add support for mutual recursion
-7. 28-1-2027: Add support for higher-order functions
+6. 07-1-2026: Generalize to sets with arbitrary levels
+7. 14-1-2027: Add support for mutual recursion
+8. 28-1-2027: Add support for higher-order functions
+9. Next steps (like cost function generation)
 
 ## TODO
 
 - [x] Understand reflection in Agda better (look at
   https://github.com/alhassy/gentle-intro-to-reflection)
-- [ ] Generate graph for simplified append
+- [x] Generate graph for simplified append
 - [ ] Generate graph for regular append
 - [ ] prove soundness and completeness for generated graphs of
   append
