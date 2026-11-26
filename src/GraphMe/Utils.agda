@@ -21,20 +21,22 @@ _++_ : {A : Set} → List A → List A → List A
 (x ∷ xs) ++ ys = x ∷ (xs ++ ys)
 
 macro
-  -- Useful macros for testing
+  -- Useful macros for testing --
 
   typeOf : Name → Term → TC ⊤
   typeOf name' hole = do
     ty ← getType name'
     unify hole ty
 
+  -- The following helpers let us inspect how a term is built up using
+  -- constructors of `Agda.Builtin.Reflection.Term` or similar structures
+  -- through type errors
+
   showTypeOf : Name → Term → TC ⊤
   showTypeOf name' _ = do
     ty ← getType name'
     typeError (strErr "Type: " ∷ termErr ty ∷ strErr "\n" ∷ [])
 
-  -- This lets us inspect how a term is built up using constructors
-  -- of `Agda.Builtin.Reflection.Term` through a type error
   showTermOf : Term → Term → TC ⊤
   showTermOf t _ = do
     t' ← quoteTC t

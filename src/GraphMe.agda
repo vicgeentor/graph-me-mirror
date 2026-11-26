@@ -17,6 +17,7 @@ mkEmptyGraph graph-name func-name = do
   declareData graph-name nArgs graphTy
   defineData graph-name []
 
+-- Full function graph
 mkGraph : Name → Name → List Name → TC ⊤
 mkGraph graph-name func-name constructors = do
   ty ← getType func-name

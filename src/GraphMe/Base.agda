@@ -32,10 +32,12 @@ mkGraphType t = go t 0
 -- Approach:
 -- 1. We make a constructor for each clause of the function (`mkConstructor(s)`)
 -- 2. Each item in the telescope maps to a hidden binder in the pi abstraction
---    of the constructor type (`telToPi`)
+--    of the constructor type, excluding the ones that correspond to
+--    parameters to the graph type (`telToPi`)
 -- 3. Each pattern in the LHS maps to a constructor argument (`patArgsToTerms`)
 -- 4. The RHS (result) maps to the final constructor argument (inside `mkConstructor`)
 
+Constructor : Set
 Constructor = (Σ Name (λ _ → Σ Quantity (λ _ → Type)))
 
 mutual
@@ -46,8 +48,8 @@ mutual
   patToTerm (dot t) = returnTC t
   patToTerm (var i) = returnTC (var i []) -- It seems we can use the same De Bruijn index here
   patToTerm (lit l) = returnTC (lit l)
-  patToTerm (proj _) = typeError (strErr "patToTerm: `proj` not supported" ∷ [])
-  patToTerm (absurd _) = typeError (strErr "patToTerm: `absurd` not supported" ∷ [])
+  patToTerm (proj _) = typeError (strErr "patToTerm: `proj` is not supported" ∷ [])
+  patToTerm (absurd _) = typeError (strErr "patToTerm: `absurd` is not supported" ∷ [])
 
   patArgsToTerms : List (Arg Pattern) → TC (List (Arg Term))
   patArgsToTerms [] = returnTC []
@@ -57,7 +59,9 @@ mutual
     returnTC (arg i p' ∷ as')
 
 -- This turns all items in the telescope to hidden, and converts them
--- to abstractions. We exclude the arguments to the graph
+-- to abstractions. We exclude the arguments to the graph by assuming that
+-- the first n items in the telescope correspond to the n parameters of the
+-- graph type.
 -- We assume that `rest` is `def graph-name args` at the call site
 telToPi : Nat → Telescope → Type → Type
 telToPi (suc n) (_ ∷ tel) rest = telToPi n tel rest
@@ -70,8 +74,8 @@ mkConstructor nArgs graph-name cons-name (clause tel ps t) = do
   args ← patArgsToTerms ps
   returnTC ( cons-name
            , quantity-ω
-             -- We pass the arguments we got from the patter as well as
-             -- the RHS (result) for now
+             -- We pass the arguments we got from the patterns plus
+             -- simply the RHS for now
            , telToPi nArgs tel (def graph-name (args ++ (arg' visible t ∷ [])))
            )
 mkConstructor _ _ _ (absurd-clause _ _) =
@@ -79,7 +83,6 @@ mkConstructor _ _ _ (absurd-clause _ _) =
 
 mkConstructors : Nat → Name → List Name → Definition → TC (List Constructor)
 mkConstructors nArgs graph-name (name' ∷ names) (function (c ∷ cs)) = do
-  -- Manual `mapTC` (sort of):
   con1 ← mkConstructor nArgs graph-name name' c
   rest ← mkConstructors nArgs graph-name names (function cs)
   returnTC (con1 ∷ rest)
