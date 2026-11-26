@@ -24,7 +24,7 @@ mkGraphType t = go t 0
 
     go : Type → Nat → Σ Type (λ _ → Nat)
     go (pi (arg i (agda-sort s)) (abs x t)) n = let t' , n' = go t (suc n) in
-     pi (arg i (agda-sort s)) (abs x t') , n'
+      pi (arg i (agda-sort s)) (abs x t') , n'
     go rest n = mkRest rest , n -- We stop counting once we reach something not of type `Set ℓ`
 
 -- Graph constructors --

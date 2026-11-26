@@ -20,37 +20,17 @@
 6. 07-1-2026: Generalize to sets with arbitrary levels
 7. 14-1-2027: Add support for mutual recursion
 8. 28-1-2027: Add support for higher-order functions
-9. Next steps (like cost function generation)
+9. Next steps (like cost function generation, soundness and
+   completeness proof generation, etc.)
 
 ## TODO
 
-- [x] Understand reflection in Agda better (look at
-  https://github.com/alhassy/gentle-intro-to-reflection)
-- [x] Generate graph for simplified append
-- [ ] Generate graph for regular append
-- [ ] prove soundness and completeness for generated graphs of
-  append
-- [x] Do the exercises below
-- [x] Make an empty data type without constructors, but with the
-  correct type based on a function type
-- [x] Add constructors one by one, either by
-  - doing it Bove-Capratta style without the result type (only
-    induction on the arguments), or
-  - use a default value (given by user or choose one, for
-    example `[]`) for use inside of the result type of
-    constructors
-
-## Exercises
-
-- [x] Write a macro that counts the cases/clauses of a function
-  (`count : Name -> Nat`)
-- [x] Write `unquoteDecl id`, and inspect it later with
-  normalization (C-c C-n), in a hole, or inspect type error of
-  `_ : id 3 ≡ 4`
-- [x] Write a `size` function that counts the constructors of an
-  instance of a data type. This is an approximation of the cost
-  function in
-  [Wouter Swierstra, 2026](https://zenodo.org/records/20506788))
+- [ ] Make nArgs a argument provided by the user, and a
+  heuristic option
+- [ ] Generate graph for append
+- [ ] Prove soundness and completeness of append graph
+- [ ] Add sanity check for generated graph: there should be no
+  function calls in the type of the constructors
 
 ## Useful papers
 
