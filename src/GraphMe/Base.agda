@@ -12,20 +12,19 @@ open import Agda.Builtin.Int using (pos; primShowInteger)
 
 -- Graph type and name --
 
--- Also returns the number of arguments to the graph data type:
--- we treat every leading argument of type `Set ℓ` in the function
--- as a paramater of the graph
-mkGraphType : Type → Σ Type (λ _ → Nat)
-mkGraphType t = go t 0
-  where
-    mkRest : Type → Type
-    mkRest (pi a (abs s t)) = pi a (abs s (mkRest t))
-    mkRest rest = pi (arg' visible rest) (abs "_" (agda-sort (lit 0)))
+mkGraphType : Type → Type
+mkGraphType (pi a (abs s t)) = pi a (abs s (mkGraphType t))
+mkGraphType rest = pi (arg' visible rest) (abs "_" (agda-sort (lit 0)))
 
-    go : Type → Nat → Σ Type (λ _ → Nat)
-    go (pi (arg i (agda-sort s)) (abs x t)) n = let t' , n' = go t (suc n) in
-      pi (arg i (agda-sort s)) (abs x t') , n'
-    go rest n = mkRest rest , n -- We stop counting once we reach something not of type `Set ℓ`
+-- In stead of providing the number of arguments to `mkGraph`,
+-- a user can also generate the number of arguments of the graph type.
+-- This function does precisely that, with the following heuristic:
+-- we treat every leading argument of type `Set ℓ` in the function
+-- definition as a paramater of the graph
+countArgumentsHeuristic : Type → Nat
+countArgumentsHeuristic (pi (arg i (agda-sort s)) (abs x t)) =
+  suc (countArgumentsHeuristic t)
+countArgumentsHeuristic _ = 0
 
 -- Graph constructors --
 

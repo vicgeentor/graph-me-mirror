@@ -25,7 +25,7 @@
 
 ## TODO
 
-- [ ] Make nArgs a argument provided by the user, and a
+- [x] Make nArgs a argument provided by the user, and a
   heuristic option
 - [ ] Generate graph for append
 - [ ] Prove soundness and completeness of append graph
