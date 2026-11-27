@@ -24,6 +24,6 @@ mkGraph' graph-name func-name constructors = do
   d  ← getDefinition func-name
   let nArgs   = countArgumentsHeuristic ty
       graphTy = mkGraphType ty
-  cons ← mkConstructors nArgs graph-name constructors d
+  cons ← mkConstructors nArgs graph-name func-name constructors d
   declareData graph-name nArgs graphTy
   defineData graph-name cons

@@ -6,7 +6,7 @@ open import GraphMe.Utils
 open import Agda.Builtin.Bool using (Bool; false; true)
 open import Agda.Builtin.Equality using (_≡_; refl)
 open import Agda.Builtin.List using (List; []; _∷_)
-open import Agda.Builtin.Nat using (Nat; zero; suc)
+open import Agda.Builtin.Nat using (Nat; zero; suc; _+_)
 open import Agda.Builtin.Reflection
 open import Agda.Builtin.Sigma using (_,_)
 open import Agda.Builtin.Unit using (⊤)
@@ -152,10 +152,6 @@ _ : count' suc12345 ≡ 6
 _ = refl
 
 -- Simple size of terms --
-
-_+_ : Nat → Nat → Nat
-zero + n = n
-(suc m) + n = suc (m + n)
 
 -- We only count constructors, but we need to search for constructors inside
 -- the constructor arguments as well
